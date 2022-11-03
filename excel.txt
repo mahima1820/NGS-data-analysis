@@ -1,0 +1,34 @@
+#Read_count
+grep "^@" SRR21771741_1.fastq  | wc -l
+
+#To calculate coverge 
+read count = 7843969
+to calculate genome size = samtools view -H *bamfile* | grep -P '^@SQ' | cut -f 3 -d ':' | awk '{sum+=$1} END {print sum}'
+genome size =143726002
+coverage = (7843969 * 150 * 2)/143726002
+
+#Count_reference_header:-
+grep -v ">" GCF_000001215.4_Release_6_plus_ISO1_MT_genomic.fna | grep -E -o "G|C|T|A|N" | wc -l
+
+#mapped_read_%
+samtools view -c -F 260 SRR21771741.bam
+
+#to count mapped ,paired end and single end %
+samtools flagstat SRR21771741.bam
+
+#to calculate variant count
+cat SRR21771741_var.vcf|grep -v '^#'|wc -l
+
+
+#to count variant_count,snp,indel
+bcftools stats  reads_aln_ecoli_mpileup.vcf> file.stats
+cat file.stats
+
+#to get reference_base_count
+grep '>' GCF_000001215.4_Release_6_plus_ISO1_MT_genomic.fna |wc -l
+
+
+# To calculate DP count >25
+awk '$1>25{c++} END{print c+0}' SRR21771741_var.vcf
+
+
