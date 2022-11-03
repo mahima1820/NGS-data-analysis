@@ -1,11 +1,12 @@
-drosophila
+drosophila is the organism on which we will perform the analysis
+#download the data from the sra database
 ~fatsqc
 
 ~wget -c \
 https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR21771741/SRR21771741
 
 ~ls
-
+#Converting sra to fastq format:
 ~fastq-dump --split-3 SRR21771741
 
 ~ls -l
