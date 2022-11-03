@@ -1,0 +1,29 @@
+drosophila
+~fatsqc
+
+~wget -c \
+https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR21771741/SRR21771741
+
+~ls
+
+~fastq-dump --split-3 SRR21771741
+
+~ls -l
+(2 files will be created)
+
+~fastqc SRR21771741_1.fastq SRR21771741_2.fastq
+download the reference seq from ncbi 
+
+~gunzip ref_zip(optional)
+
+~bowtie2-build reference_file organism_name
+
+~bowtie2 -x organism_name -1 1st_fastq.fastq -2 2nd_fastq.fastq -S output.sam
+
+~samtools view -b -S INPUT.sam -o OUTPUT.bam
+
+~samtools sort INPUT.bam -o OUTPUT_sorted
+
+~samtools index INPUT_sorted
+
+~samtools faidx reference.fna
